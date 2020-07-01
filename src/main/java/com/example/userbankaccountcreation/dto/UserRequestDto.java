@@ -1,48 +1,32 @@
-package com.example.userbankaccountcreation.model;
+package com.example.userbankaccountcreation.dto;
 
-import java.time.LocalDate;
 
-import javax.persistence.Entity;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import com.example.userbankaccountcreation.enumpack.StatusType;
 
-
-@Entity
-public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int  userId;
+public class UserRequestDto {
 	private String userName;
-	private LocalDate DateOfBirth;
+	private String DateOfBirth;
 	private  String panNumber ;
 	private  String mobileNumber;
 	private double salary;
-	
+	@Enumerated(value = EnumType.STRING)
+	private StatusType accountType;
 	private String occupation;
-	private char[] password;
-	private int customerId;
-
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public LocalDate getDateOfBirth() {
+	
+	public String getDateOfBirth() {
 		return DateOfBirth;
 	}
-	public void setDateOfBirth(LocalDate dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		DateOfBirth = dateOfBirth;
 	}
 	public String getPanNumber() {
@@ -63,25 +47,17 @@ public class User {
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
-	
+	public StatusType getAccountType() {
+		return accountType;
+	}
+	public void setAccountType(StatusType accountType) {
+		this.accountType = accountType;
+	}
 	public String getOccupation() {
 		return occupation;
 	}
 	public void setOccupation(String occupation) {
 		this.occupation = occupation;
-	}
-	
-	public char[] getPassword() {
-		return password;
-	}
-	public void setPassword(char[] password) {
-		this.password = password;
-	}
-	public int getCustomerId() {
-		return customerId;
-	}
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
 	}
 	
 }
