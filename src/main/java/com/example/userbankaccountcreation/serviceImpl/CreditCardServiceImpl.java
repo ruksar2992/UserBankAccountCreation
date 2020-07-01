@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.userbankaccountcreation.dao.CreditCardDao;
 import com.example.userbankaccountcreation.dto.CreditCardResponseDto;
-import com.example.userbankaccountcreation.model.CreditCard;
 import com.example.userbankaccountcreation.service.CreditCardtService;
 @Service
 public class CreditCardServiceImpl implements CreditCardtService {
