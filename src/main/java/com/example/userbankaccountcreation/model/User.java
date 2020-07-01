@@ -14,7 +14,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userId;
 	private String userName;
-	private LocalDate DateOfBirth;
+	private LocalDate dateOfBirth;
 	private String panNumber;
 	private String mobileNumber;
 	private double salary;
@@ -39,12 +39,14 @@ public class User {
 		this.userName = userName;
 	}
 
+	
+
 	public LocalDate getDateOfBirth() {
-		return DateOfBirth;
+		return dateOfBirth;
 	}
 
 	public void setDateOfBirth(LocalDate dateOfBirth) {
-		DateOfBirth = dateOfBirth;
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public String getPanNumber() {

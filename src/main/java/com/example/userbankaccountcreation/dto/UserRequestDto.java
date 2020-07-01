@@ -7,7 +7,7 @@ import com.example.userbankaccountcreation.enumpack.StatusType;
 
 public class UserRequestDto {
 	private String userName;
-	private String DateOfBirth;
+	private String dateOfBirth;
 	private String panNumber;
 	private String mobileNumber;
 	private double salary;
@@ -23,12 +23,14 @@ public class UserRequestDto {
 		this.userName = userName;
 	}
 
+	
+
 	public String getDateOfBirth() {
-		return DateOfBirth;
+		return dateOfBirth;
 	}
 
 	public void setDateOfBirth(String dateOfBirth) {
-		DateOfBirth = dateOfBirth;
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public String getPanNumber() {

@@ -25,7 +25,7 @@ public class CreditCardController {
 
 		CreditCardResponseDto creditCardResponseDto = creditCardService.creditCarddetails(userId);
 
-		return new ResponseEntity<CreditCardResponseDto>(creditCardResponseDto, HttpStatus.OK);
+		return new ResponseEntity<>(creditCardResponseDto, HttpStatus.OK);
 
 	}
 }

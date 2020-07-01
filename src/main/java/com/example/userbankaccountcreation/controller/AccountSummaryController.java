@@ -29,7 +29,7 @@ public class AccountSummaryController {
 
 		AccountResponseDto accountResponseDto = accountService.searchaccountdetails(userId);
 
-		return new ResponseEntity<AccountResponseDto>(accountResponseDto, HttpStatus.OK);
+		return new ResponseEntity<>(accountResponseDto, HttpStatus.OK);
 
 	}
 

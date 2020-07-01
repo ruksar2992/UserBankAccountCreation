@@ -27,7 +27,7 @@ public class UserController {
 	@PostMapping("/Users")
 	public ResponseEntity<UserResponseDto> registerUserDetails(@RequestBody UserRequestDto userRequestDto) {
 		UserResponseDto customerDetails = userService.registeringUserDetails(userRequestDto);
-		return new ResponseEntity<UserResponseDto>(customerDetails, HttpStatus.OK);
+		return new ResponseEntity<>(customerDetails, HttpStatus.OK);
 	}
 
 	@PostMapping("/users/login")

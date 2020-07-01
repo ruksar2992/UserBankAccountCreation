@@ -15,7 +15,7 @@ public class ExceptionController {
 
 	@ExceptionHandler
 	public ResponseEntity<String> exceptionHandler(InvalidCredentialsException invalidCredentialsException) {
-		return new ResponseEntity<String>(invalidCredentialsException.getMessage(), HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(invalidCredentialsException.getMessage(), HttpStatus.NOT_FOUND);
 
 	}
 

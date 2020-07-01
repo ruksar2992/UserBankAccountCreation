@@ -9,6 +9,7 @@ import com.example.userbankaccountcreation.dao.AccountDao;
 import com.example.userbankaccountcreation.dao.CreditCardDao;
 import com.example.userbankaccountcreation.dao.UserDao;
 import com.example.userbankaccountcreation.dto.CreditCardResponseDto;
+import com.example.userbankaccountcreation.enumpack.StatusType;
 import com.example.userbankaccountcreation.model.Account;
 import com.example.userbankaccountcreation.model.CreditCard;
 import com.example.userbankaccountcreation.model.User;
@@ -21,9 +22,13 @@ public class CreditCardServiceImpl implements CreditCardtService {
 	CreditCardDao creditCardDao;
 	@Autowired
 	UserDao userDao;
+	@Autowired
+	AccountServiceImpl accountServiceImpl;
 
 	@Autowired
 	AccountDao accountDao;
+
+	Random rand = new Random();
 
 	@Override
 	public CreditCardResponseDto creditCarddetails(int userId) {
@@ -35,7 +40,6 @@ public class CreditCardServiceImpl implements CreditCardtService {
 		creditcard.setAccountId(account.getAccountId());
 		creditcard.setUserId(userId);
 
-		Random rand = new Random();
 		int creditnum = rand.nextInt(9000000) + 1000000;
 		creditcard.setCreditCardNumber(creditnum);
 
@@ -43,16 +47,16 @@ public class CreditCardServiceImpl implements CreditCardtService {
 		if (salary1 > 50000) {
 			creditcard.setCreditCardType("platinum");
 
-			creditCardDao.save(creditcard);
-
+			
 		} else if ((salary1 < 50000) && (salary1 > 30000)) {
 			creditcard.setCreditCardType("Gold");
-			creditCardDao.save(creditcard);
 		} else {
 			creditcard.setCreditCardType("silver");
-			creditCardDao.save(creditcard);
 
 		}
+		creditCardDao.save(creditcard);
+		accountServiceImpl.saveAccountDetails(userId,StatusType.CREDITTYPE);
+
 		CreditCard creditCard1 = creditCardDao.findAllByUserId(userId);
 		creditCardResponseDto.setCreditCardNumber(creditCard1.getCreditCardNumber());
 		creditCardResponseDto.setCreditCardtype(creditCard1.getCreditCardType());
