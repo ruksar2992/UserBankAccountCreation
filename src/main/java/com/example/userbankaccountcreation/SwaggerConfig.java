@@ -27,8 +27,13 @@ public class SwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return new ApiInfo("UserBankAccountCreation", "User Bank Account Creation for Users RESTful api documentation", "1", "terms",
 				new Contact("team", "www.UserBankAccountCreation.com", "support@library.com"), "license number", "lecence url",
+=======
+		return new ApiInfo("Bankingproj", "Bank Account Creation for user RESTful api documentation", "1", "terms",
+				new Contact("Sparks", "www.Bankingproj.com", "support@library.com"), "license number", "lecence url",
+>>>>>>> d53368d25741fe664e6e8859106ab0f5c28a1daf
 				Collections.emptyList());
 	}
 }
