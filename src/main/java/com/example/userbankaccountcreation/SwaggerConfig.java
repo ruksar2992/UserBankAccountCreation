@@ -26,9 +26,10 @@ public class SwaggerConfig {
 	}
 
 	private ApiInfo apiInfo() {
-		// TODO Auto-generated method stub
-		return new ApiInfo("LibraryManagement", "Online Library Management System for Books RESTful api documentation", "1", "terms",
-				new Contact("team", "www.OnlineLibraryManagementSystem.com", "support@library.com"), "license number", "lecence url",
+		return new ApiInfo("UserBankAccountCreation", "User Bank Account Creation for Users RESTful api documentation",
+				"1", "terms", new Contact("team", "www.UserBankAccountCreation.com", "support@library.com"),
+				"license number", "lecence url",
+
 				Collections.emptyList());
 	}
 }

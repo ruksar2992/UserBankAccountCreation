@@ -5,8 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.userbankaccountcreation.model.Account;
 
-
 @Repository
-public interface AccountDao extends CrudRepository<Account ,Integer> {
-
+public interface AccountDao extends CrudRepository<Account, Integer> {
+	Account findAllByUserId(int userId);
 }

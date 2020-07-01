@@ -5,6 +5,8 @@ import java.time.Period;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +15,15 @@ import com.example.userbankaccountcreation.dao.UserDao;
 import com.example.userbankaccountcreation.dto.UserRequestDto;
 import com.example.userbankaccountcreation.dto.UserResponseDto;
 import com.example.userbankaccountcreation.exception.InvalidAgeException;
+import com.example.userbankaccountcreation.exception.InvalidCredentialsException;
 import com.example.userbankaccountcreation.model.Account;
 import com.example.userbankaccountcreation.model.User;
 import com.example.userbankaccountcreation.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
+	private static Log logger = LogFactory.getLog(UserServiceImpl.class);
+
 	@Autowired
 	UserDao userDao;
 	@Autowired
@@ -26,13 +31,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResponseDto registeringUserDetails(UserRequestDto userRequestDto) {
-		
+
 		User user = new User();
-	Account account = new Account();
-	UserResponseDto UserResponseDto = new  UserResponseDto(); 
+		Account account = new Account();
+		UserResponseDto UserResponseDto = new UserResponseDto();
 		LocalDate birthDate = LocalDate.parse(userRequestDto.getDateOfBirth());
-		int age=Period.between(birthDate,LocalDate.now()).getYears();
-		if(age>=18) {
+		int age = Period.between(birthDate, LocalDate.now()).getYears();
+		if (age >= 18) {
 			user.setUserName(userRequestDto.getUserName());
 			user.setSalary(userRequestDto.getSalary());
 			user.setDateOfBirth(birthDate);
@@ -42,44 +47,55 @@ public class UserServiceImpl implements UserService {
 			Random rand = new Random();
 			int customernum = rand.nextInt(9000000) + 1000000;
 			user.setCustomerId(customernum);
-			char[] customerPassword=generatePassword(8);
-            user.setPassword(customerPassword);
-            userDao.save(user);
-            User userdetail = userDao.findUserIdByPanNumber(userRequestDto.getPanNumber());
-            long accountNum = ThreadLocalRandom.current().nextLong(100000000,999999999);
+			char[] customerPassword = generatePassword(8);
+			user.setPassword(customerPassword.toString());
+			userDao.save(user);
+			User userdetail = userDao.findUserIdByPanNumber(userRequestDto.getPanNumber());
+			long accountNum = ThreadLocalRandom.current().nextLong(100000000, 999999999);
 			account.setAccountNumber(accountNum);
 			account.setBalance(5000);
 			account.setAccountType(userRequestDto.getAccountType());
 			account.setUserId(userdetail.getUserId());
 			accountDao.save(account);
 			UserResponseDto.setCustomerId(customernum);
-			UserResponseDto.setPassword(customerPassword);
+			UserResponseDto.setPassword(customerPassword.toString());
 			return UserResponseDto;
-}
-		
+		}
+
 		else {
-			throw new InvalidAgeException("your Age is Not sufficient for creating Account.Age shoule be greater than or equal to 18");
+			throw new InvalidAgeException(
+					"your Age is Not sufficient for creating Account.Age shoule be greater than or equal to 18");
 		}
 	}
 
 	private static char[] generatePassword(int length) {
-		 String capitalCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	      String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
-	      String specialCharacters = "!@#$";
-	      String numbers = "1234567890";
-	      String combinedChars = capitalCaseLetters + lowerCaseLetters + specialCharacters + numbers;
-	      Random random = new Random();
-	      char[] password = new char[8];
+		String capitalCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
+		String specialCharacters = "!@#$";
+		String numbers = "1234567890";
+		String combinedChars = capitalCaseLetters + lowerCaseLetters + specialCharacters + numbers;
+		Random random = new Random();
+		char[] password = new char[8];
 
-	      password[0] = lowerCaseLetters.charAt(random.nextInt(lowerCaseLetters.length()));
-	      password[1] = capitalCaseLetters.charAt(random.nextInt(capitalCaseLetters.length()));
-	      password[2] = specialCharacters.charAt(random.nextInt(specialCharacters.length()));
-	      password[3] = numbers.charAt(random.nextInt(numbers.length()));
-	   
-	      for(int i = 4; i< 8 ; i++) {
-	         password[i] = combinedChars.charAt(random.nextInt(combinedChars.length()));
-	      }
-	      return password;
+		password[0] = lowerCaseLetters.charAt(random.nextInt(lowerCaseLetters.length()));
+		password[1] = capitalCaseLetters.charAt(random.nextInt(capitalCaseLetters.length()));
+		password[2] = specialCharacters.charAt(random.nextInt(specialCharacters.length()));
+		password[3] = numbers.charAt(random.nextInt(numbers.length()));
 
-}
+		for (int i = 4; i < 8; i++) {
+			password[i] = combinedChars.charAt(random.nextInt(combinedChars.length()));
+		}
+		return password;
+
+	}
+
+	@Override
+	public boolean authenticateUser(int custimerId, String password) throws InvalidCredentialsException {
+		logger.info("implementaion of authenticating the user");
+		User user = userDao.findByCustomerIdAndPassword(custimerId, password);
+
+		if (user != null)
+			return true;
+		throw new InvalidCredentialsException("invalid credentials !! please try again with valid credentials");
+	}
 }

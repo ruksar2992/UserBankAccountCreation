@@ -1,17 +1,8 @@
 package com.example.userbankaccountcreation.dto;
 
-public class UserResponseDto {
-	private String password;
+public class LoginDto {
 	private int customerId;
-
-	
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	String password;
 
 	public int getCustomerId() {
 		return customerId;
@@ -19,6 +10,14 @@ public class UserResponseDto {
 
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

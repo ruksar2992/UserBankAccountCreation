@@ -1,22 +1,20 @@
 package com.example.userbankaccountcreation.model;
 
-
-
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import com.example.userbankaccountcreation.Enum.CreditCardType;
 
 @Entity
 public class CreditCard {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int creditCardId;
-	private long creditCardNumber;
+	private int creditCardNumber;
 	private int accountId;
-	private int UserId;
-	@Enumerated(value = EnumType.STRING)
-	private CreditCardType creditCardType;
+	private int userId;
+	private String creditCardType;
 
 	public int getCreditCardId() {
 		return creditCardId;
@@ -26,11 +24,11 @@ public class CreditCard {
 		this.creditCardId = creditCardId;
 	}
 
-	public long getCreditCardNumber() {
+	public int getCreditCardNumber() {
 		return creditCardNumber;
 	}
 
-	public void setCreditCardNumber(long creditCardNumber) {
+	public void setCreditCardNumber(int creditCardNumber) {
 		this.creditCardNumber = creditCardNumber;
 	}
 
@@ -43,21 +41,19 @@ public class CreditCard {
 	}
 
 	public int getUserId() {
-		return UserId;
+		return userId;
 	}
 
 	public void setUserId(int userId) {
-		UserId = userId;
+		this.userId = userId;
 	}
 
-	public CreditCardType getCreditCardType() {
+	public String getCreditCardType() {
 		return creditCardType;
 	}
 
-	public void setCreditCardType(CreditCardType creditCardType) {
+	public void setCreditCardType(String creditCardType) {
 		this.creditCardType = creditCardType;
 	}
-
-	
 
 }

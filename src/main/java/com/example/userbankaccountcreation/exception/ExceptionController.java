@@ -7,10 +7,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ExceptionController {
-	
-	@ExceptionHandler(value=InvalidAgeException.class)
+
+	@ExceptionHandler(value = InvalidAgeException.class)
 	public ResponseEntity<Object> exceptionHandler(InvalidAgeException invalidAgeException) {
-		return new ResponseEntity<>(invalidAgeException, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(invalidAgeException.getMessage(), HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler
+	public ResponseEntity<String> exceptionHandler(InvalidCredentialsException invalidCredentialsException) {
+		return new ResponseEntity<String>(invalidCredentialsException.getMessage(), HttpStatus.NOT_FOUND);
+
 	}
 
 }
