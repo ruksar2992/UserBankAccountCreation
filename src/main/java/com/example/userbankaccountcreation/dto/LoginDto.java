@@ -1,12 +1,11 @@
-package com.example.userbankaccountcreation.model;
+package com.example.userbankaccountcreation.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-@Entity
-public class User {
-	@Id
-	public int customerId;
-	public String password;
+
+public class LoginDto {
+	int customerId;
+	String password;
+	
+	
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -19,9 +18,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
-	
 
 }
+
+

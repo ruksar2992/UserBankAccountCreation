@@ -16,7 +16,14 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<sonar.coverage.exclusions>foo/**/*,**/bar/*</sonar.coverage.exclusions>
+		<sonar.coverage.exclusions>
+        src/main/java/com/example/UserBankAccountCreation/UserserviceApplication.java,
+        src/main/java/com/example/UserBankAccountCreation/dao/*.java,
+        src/main/java/com/example/UserBankAccountCreation/dto/*.java,
+        src/main/java/com/example/UserBankAccountCreation/exception/*.java,
+        src/main/java/com/example/UserBankAccountCreation/model/*.java,
+        src/main/java/com/example/UserBankAccountCreation/service/*.java
+        </sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
